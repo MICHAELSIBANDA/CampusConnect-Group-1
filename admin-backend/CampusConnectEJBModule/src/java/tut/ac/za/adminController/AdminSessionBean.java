@@ -22,6 +22,8 @@ import tut.ac.za.entitiy.Student;
 @Stateless
 public class AdminSessionBean implements AdminSessionBeanLocal {
 @EJB
+private StudentFacadeLocal sfl;
+@EJB
 private AdminFacadeLocal afl;
 @EJB
 private AnnouncmentFacadeLocal annfl;
@@ -35,6 +37,7 @@ private EventFacadeLocal efl;
         
         if (existing == null) {
            Student student = new Student(fullname, studentNo, email, password);
+           sfl.create(student);
         }
         
     }
@@ -60,7 +63,44 @@ private EventFacadeLocal efl;
             existing.setStudentNumber(studentNo);
             existing.setEmail(email);
             existing.setPassword(password);
+            sfl.edit(existing);
         }
+    }
+
+    @Override
+    public void editEvent(Long id, String title, String content, Date startDateAndTime, Date endDateAndTime) {
+        Event existing = efl.find(id);
+        
+        if (existing != null) {
+            existing.setTitle(title);
+            existing.setContent(content);
+            existing.setStartDateAndTime(startDateAndTime);
+            existing.setEndDateAndTime(endDateAndTime);
+            efl.edit(existing);
+        }
+    }
+
+    @Override
+    public void removeEvent(Long id) {
+        Event existing = efl.find(id);
+        efl.remove(existing);
+    }
+
+    @Override
+    public void editAnnouncment(Long id, String title, String content) {
+        Announcment existing = annfl.find(id);
+        
+        if (existing != null) {
+            existing.setTitle(title);
+            existing.setContent(content);
+            annfl.edit(existing);
+        }
+    }
+
+    @Override
+    public void removeAnnouncment(Long id) {
+        Announcment existing = annfl.find(id);
+        annfl.remove(existing);
     }
 
 }
