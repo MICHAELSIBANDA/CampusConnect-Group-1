@@ -50,14 +50,9 @@ public class SupportRequest implements Serializable {
     @Column(nullable=false)
     private SupportType supportType;
 
-    @Column(nullable=false)
-    private String subjectModule;
-
     @Lob
     @Column(nullable=false)
     private String description;
-
-    private LocalDateTime preferredDateTime;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable=false)
@@ -69,12 +64,10 @@ public class SupportRequest implements Serializable {
     public SupportRequest() {
     }
 
-    public SupportRequest(Student student, SupportType supportType, String subjectModule, String description, LocalDateTime preferredDateTime) {
+    public SupportRequest(Student student, SupportType supportType,  String description) {
         this.student = student;
         this.supportType = supportType;
-        this.subjectModule = subjectModule;
         this.description = description;
-        this.preferredDateTime = preferredDateTime;
     }
 
     public Student getStudent() {
@@ -93,13 +86,6 @@ public class SupportRequest implements Serializable {
         this.supportType = supportType;
     }
 
-    public String getSubjectModule() {
-        return subjectModule;
-    }
-
-    public void setSubjectModule(String subjectModule) {
-        this.subjectModule = subjectModule;
-    }
 
     public String getDescription() {
         return description;
@@ -107,14 +93,6 @@ public class SupportRequest implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public LocalDateTime getPreferredDateTime() {
-        return preferredDateTime;
-    }
-
-    public void setPreferredDateTime(LocalDateTime preferredDateTime) {
-        this.preferredDateTime = preferredDateTime;
     }
 
     public RequestStatus getStatus() {
