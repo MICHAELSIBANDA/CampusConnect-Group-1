@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CampusConnect - Student Services</title>
+
+<!-- Bootstrap & Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+
+<style>
+
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+/* Blurred tiled background */
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://www.studentroom.co.za/wp-content/uploads/2020/03/Tshwane-University-of-Technology-tut-logo.png');
+    background-repeat: repeat;
+    background-size: 150px 150px;
+    filter: blur(5px);
+    z-index: 0;
+    transition: filter 0.5s;
+}
+
+/* Banner */
+.banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #000;
+    text-align: center;
+    padding: 10px 0;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner img {
+    height: 60px;
+}
+
+/* Mode container (top right) */
+.mode-container {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;   /* ALWAYS WHITE for visibility */
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.toggle-mode {
+    cursor: pointer;
+    font-size: 1.3rem;
+}
+
+/* Center card */
+.container-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    z-index: 1;
+    position: relative;
+}
+
+.landing-card {
+    background-color: rgba(0, 0, 0, 0.9);
+    color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    max-width: 450px;
+    width: 85%;
+    margin-top: 100px;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+.landing-card img {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+.landing-card a {
+    width: 140px;
+}
+
+/* Title animation */
+.animated-title span {
+    display: block;
+    opacity: 0;
+    transform: translateY(-50px);
+    animation: dropDown 0.6s forwards;
+}
+
+@keyframes dropDown {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Paragraph animation */
+.animated-paragraph span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateX(-50px);
+    animation: slideRight 0.5s forwards;
+}
+
+@keyframes slideRight {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Footer */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0,0,0,0.85);
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    z-index: 2;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+footer a {
+    color: #fff;
+    margin-left: 10px;
+    font-size: 1.2rem;
+    transition: color 0.5s;
+}
+
+/* Light mode styles */
+body.light-mode {
+    color: #000;
+}
+
+body.light-mode .background {
+    filter: blur(3px) brightness(1.2);
+}
+
+body.light-mode .landing-card {
+    background-color: rgba(255,255,255,0.95);
+    color: #000;
+}
+
+body.light-mode footer {
+    background-color: rgba(255,255,255,0.9);
+    color: #000;
+}
+
+body.light-mode footer a {
+    color: #000;
+}
+
+/* KEEP banner indicator visible */
+body.light-mode .banner .mode-container {
+    color: #fff;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<!-- Banner -->
+<div class="banner">
+    <img src="https://tse1.mm.bing.net/th/id/OIP.izfCn4HNbMQz-RhKwLmxGgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" alt="TUT Logo">
+
+    <div class="mode-container">
+        <span id="modeText">Dark Mode</span>
+        <i class="fas fa-adjust toggle-mode" id="modeToggle"></i>
+    </div>
+</div>
+
+<!-- Center Card -->
+<div class="container-center">
+    <div class="landing-card">
+
+        <img src="https://tse1.mm.bing.net/th/id/OIP.izfCn4HNbMQz-RhKwLmxGgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" alt="CampusConnect Logo">
+
+        <h1 class="animated-title" id="animatedTitle">
+            Welcome to CampusConnect
+        </h1>
+
+        <p class="animated-paragraph" id="animatedParagraph">
+            Access all your student services easily by logging in or registering a new account.
+        </p>
+
+        <div class="d-flex justify-content-center gap-3 mt-4">
+            <a href="login.jsp" class="btn btn-primary btn-lg">Login</a>
+            <a href="Register.jsp" class="btn btn-outline-primary btn-lg">Register</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div>&copy; 2026 CampusConnect</div>
+    <div>
+        <a href="https://www.facebook.com/TUTuniversity" target="_blank">
+            <i class="fab fa-facebook"></i>
+        </a>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script>
+
+/* Animate title word by word */
+const titleElement = document.getElementById('animatedTitle');
+const titleWords = titleElement.innerText.split(' ');
+titleElement.innerHTML = '';
+
+titleWords.forEach((word, i) => {
+    const span = document.createElement('span');
+    span.innerText = word;
+    span.style.animationDelay = (i * 0.4) + 's';
+    titleElement.appendChild(span);
+    span.appendChild(document.createTextNode(' '));
+});
+
+/* Animate paragraph word by word */
+const paraElement = document.getElementById('animatedParagraph');
+const paraWords = paraElement.innerText.split(' ');
+paraElement.innerHTML = '';
+
+paraWords.forEach((word, i) => {
+    const span = document.createElement('span');
+    span.innerHTML = word + '&nbsp;';
+    span.style.animationDelay = (i * 0.15) + 's';
+    paraElement.appendChild(span);
+});
+
+/* Dark / Light mode toggle + indicator */
+const toggle = document.getElementById('modeToggle');
+const modeText = document.getElementById('modeText');
+
+toggle.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+
+    if (document.body.classList.contains('light-mode')) {
+        modeText.innerText = "Light Mode";
+    } else {
+        modeText.innerText = "Dark Mode";
+    }
+});
+
+</script>
+
+</body>
+</html>
