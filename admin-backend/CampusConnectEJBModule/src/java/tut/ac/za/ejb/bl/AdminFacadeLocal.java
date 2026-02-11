@@ -22,23 +22,15 @@ public interface AdminFacadeLocal {
 
     void create(Admin admin);
     
-    //void createStudent(Student student); //Create a Student
-    
     List<Student> findAllStudents(); // View all students in DataBase
     
     Student findStudent(Integer studentNo); // View for a specific student
-    
-    //void edit(Student student); // edit student data
     
     void updateStatus(Long serviceId, String status); // update the status
     
     List<Service> findAllServices(); // view all services/requests 
     
     List<Service> findAllServicesForSpecificType(String type); // View Services e.g by tutors/ consultations
-    
-    //void createEvent(Event event); // create a new event
-    
-    //void createAnnouncment(Announcment announcment); // create a new ann
     
     
 }

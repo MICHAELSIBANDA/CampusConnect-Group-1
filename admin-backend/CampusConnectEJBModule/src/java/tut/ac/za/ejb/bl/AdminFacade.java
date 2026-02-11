@@ -46,8 +46,14 @@ public class AdminFacade extends AbstractFacade<Admin> implements AdminFacadeLoc
     public Student findStudent(Integer studentNo) {
         Query query = em.createQuery("SELECT s FROM Student s WHERE s.studentNo = :studentNo");
         query.setParameter("studentNo", studentNo);
-        Student student = (Student) query.getSingleResult();
+        List<Student> list = query.getResultList();
+        
+        if (list.isEmpty()) {
+        return null;
+        } else {
+        Student student = (Student) list.get(0);
         return student;
+        }
     }
 
     @Override
@@ -69,7 +75,7 @@ public class AdminFacade extends AbstractFacade<Admin> implements AdminFacadeLoc
     public void updateStatus(Long serviceId, String status) {
         Query query =em.createQuery("UPDATE Service s SET s.status = :status WHERE s.id = :id");
         query.setParameter("status", status);
-        query.setParameter("serviceId", serviceId);
+        query.setParameter("id", serviceId);
         query.executeUpdate();
     }
     

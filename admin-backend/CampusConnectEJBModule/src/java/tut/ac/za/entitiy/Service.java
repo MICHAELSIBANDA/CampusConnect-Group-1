@@ -29,7 +29,7 @@ public class Service implements Serializable {
     private String type;
     private String module;
     private Integer studentNo;
-    private String decription;
+    private String description;
     private String email;
     private String status;
     
@@ -37,36 +37,36 @@ public class Service implements Serializable {
     private Date creationDate;
     
     @Temporal(TemporalType.TIMESTAMP)
-    private Date prefferedDate;
+    private Date preferredDate;
 
     public Service() {
     }
 
-    public Service(String type, String module, Integer studentNo, String decription, String email, String status, Date creationDate, Date prefferedDate) {
+    public Service(String type, String module, Integer studentNo, String description, String email, String status, Date creationDate, Date preferredDate) {
         this.type = type;
         this.module = module;
         this.studentNo = studentNo;
-        this.decription = decription;
+        this.description = description;
         this.email = email;
         this.status = status;
         this.creationDate = creationDate;
-        this.prefferedDate = prefferedDate;
+        this.preferredDate = preferredDate;
     }
 
-    public Date getPrefferedDate() {
-        return prefferedDate;
+    public Date getPreferredDate() {
+        return preferredDate;
     }
 
-    public void setPrefferedDate(Date prefferedDate) {
-        this.prefferedDate = prefferedDate;
+    public void setPreferredDate(Date prefferedDate) {
+        this.preferredDate = prefferedDate;
     }
 
-    public String getDecription() {
-        return decription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDecription(String decription) {
-        this.decription = decription;
+    public void setDescription(String decription) {
+        this.description = decription;
     }
 
     public String getType() {

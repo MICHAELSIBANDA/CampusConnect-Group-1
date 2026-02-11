@@ -34,17 +34,30 @@ public class Event implements Serializable {
     
     @Temporal(TemporalType.TIMESTAMP)
     private Date endDateAndTime; 
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateCreatedAt; 
 
     public Event() {
     }
 
-    public Event(String title, String content, Date startDateAndTime, Date endDateAndTime) {
+    public Event(String title, String content, Date startDateAndTime, Date endDateAndTime, Date dateCreatedAt) {
         this.title = title;
         this.content = content;
         this.startDateAndTime = startDateAndTime;
         this.endDateAndTime = endDateAndTime;
+        this.dateCreatedAt = dateCreatedAt;
     }
 
+    public Date getDateCreatedAt() {
+        return dateCreatedAt;
+    }
+
+    public void setDateCreatedAt(Date dateCreatedAt) {
+        this.dateCreatedAt = dateCreatedAt;
+    }
+
+    
     public String getTitle() {
         return title;
     }
