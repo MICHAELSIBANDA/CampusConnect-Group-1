@@ -13,8 +13,10 @@ import javax.persistence.Query;
 import tut.ac.za.entitiy.Admin;
 import tut.ac.za.entitiy.Announcment;
 import tut.ac.za.entitiy.Event;
-import tut.ac.za.entitiy.Service;
+import tut.ac.za.entitiy.RequestStatus;
 import tut.ac.za.entitiy.Student;
+import tut.ac.za.entitiy.SupportRequest;
+import tut.ac.za.entitiy.SupportType;
 
 /**
  *
@@ -43,7 +45,7 @@ public class AdminFacade extends AbstractFacade<Admin> implements AdminFacadeLoc
     }
 
     @Override
-    public Student findStudent(Integer studentNo) {
+    public Student findStudent(String studentNo) {
         Query query = em.createQuery("SELECT s FROM Student s WHERE s.studentNo = :studentNo");
         query.setParameter("studentNo", studentNo);
         List<Student> list = query.getResultList();
@@ -55,28 +57,27 @@ public class AdminFacade extends AbstractFacade<Admin> implements AdminFacadeLoc
         return student;
         }
     }
-
+    
     @Override
-    public List<Service> findAllServices() {
-        Query query = em.createQuery("SELECT s FROM Service s");
-        List<Service> services = query.getResultList();
-        return services;
-    }
-
-    @Override
-    public List<Service> findAllServicesForSpecificType(String type) {
-        Query query = em.createQuery("SELECT s FROM Service s WHERE s.type = :type");
-        query.setParameter("type", type);
-        List<Service> services = query.getResultList();
-        return services;
-    }
-
-    @Override
-    public void updateStatus(Long serviceId, String status) {
-        Query query =em.createQuery("UPDATE Service s SET s.status = :status WHERE s.id = :id");
+    public void updateStatus(Long requestId, RequestStatus status) {
+        Query query =em.createQuery("UPDATE SupportRequest s SET s.status = :status WHERE s.id = :id");
         query.setParameter("status", status);
-        query.setParameter("id", serviceId);
+        query.setParameter("id", requestId);
         query.executeUpdate();
     }
-    
+
+    @Override
+    public List<SupportRequest> findAllRequests() {
+        Query query = em.createQuery("SELECT s FROM SupportRequest s");
+        List<SupportRequest> requests = query.getResultList();
+        return requests;
+    }
+
+    @Override
+    public List<SupportRequest> findAllRequestsForSpecificType(SupportType type) {
+        Query query = em.createQuery("SELECT s FROM SupportRequest s WHERE s.supportType = :type");
+        query.setParameter("type", type);
+        List<SupportRequest> requests = query.getResultList();
+        return requests;
+    }
 }

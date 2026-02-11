@@ -8,10 +8,10 @@ package tut.ac.za.ejb.bl;
 import java.util.List;
 import javax.ejb.Local;
 import tut.ac.za.entitiy.Admin;
-import tut.ac.za.entitiy.Announcment;
-import tut.ac.za.entitiy.Event;
-import tut.ac.za.entitiy.Service;
+import tut.ac.za.entitiy.RequestStatus;
 import tut.ac.za.entitiy.Student;
+import tut.ac.za.entitiy.SupportRequest;
+import tut.ac.za.entitiy.SupportType;
 
 /**
  *
@@ -24,13 +24,13 @@ public interface AdminFacadeLocal {
     
     List<Student> findAllStudents(); // View all students in DataBase
     
-    Student findStudent(Integer studentNo); // View for a specific student
+    Student findStudent(String studentNo); // View for a specific student
     
-    void updateStatus(Long serviceId, String status); // update the status
+    void updateStatus(Long requestId, RequestStatus status); // update the status
     
-    List<Service> findAllServices(); // view all services/requests 
+    List<SupportRequest> findAllRequests(); // view all services/requests 
     
-    List<Service> findAllServicesForSpecificType(String type); // View Services e.g by tutors/ consultations
+    List<SupportRequest> findAllRequestsForSpecificType(SupportType type); // View Services e.g by tutors/ consultations
     
     
 }

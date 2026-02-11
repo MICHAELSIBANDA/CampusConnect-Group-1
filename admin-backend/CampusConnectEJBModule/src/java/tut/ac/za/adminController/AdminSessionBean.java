@@ -11,7 +11,6 @@ import javax.ejb.Stateless;
 import tut.ac.za.ejb.bl.AdminFacadeLocal;
 import tut.ac.za.ejb.bl.AnnouncmentFacadeLocal;
 import tut.ac.za.ejb.bl.EventFacadeLocal;
-import tut.ac.za.ejb.bl.StudentFacadeLocal;
 import tut.ac.za.entitiy.Announcment;
 import tut.ac.za.entitiy.Event;
 import tut.ac.za.entitiy.Student;
@@ -23,8 +22,6 @@ import tut.ac.za.entitiy.Student;
 @Stateless
 public class AdminSessionBean implements AdminSessionBeanLocal {
 @EJB
-private StudentFacadeLocal sfl;
-@EJB
 private AdminFacadeLocal afl;
 @EJB
 private AnnouncmentFacadeLocal annfl;
@@ -32,13 +29,12 @@ private AnnouncmentFacadeLocal annfl;
 private EventFacadeLocal efl;
 
     @Override
-    public void createStudent(String fullname, Integer studentNo, String email, String password) {
+    public void createStudent(String fullname, String studentNo, String email, String password) {
         
         Student existing = afl.findStudent(studentNo);
         
         if (existing == null) {
-           Student student = new Student(fullname, studentNo, email, password, new Date());
-            sfl.create(student);
+           Student student = new Student(fullname, studentNo, email, password);
         }
         
     }
@@ -56,15 +52,14 @@ private EventFacadeLocal efl;
     }
 
     @Override
-    public void editStudent(String fullname, Integer studentNo, String email, String password) {
+    public void editStudent(String fullname, String studentNo, String email, String password) {
         Student existing = afl.findStudent(studentNo);
         
         if (existing != null) {
-            existing.setFullname(fullname);
-            existing.setStudentNo(studentNo);
+            existing.setFullName(fullname);
+            existing.setStudentNumber(studentNo);
             existing.setEmail(email);
             existing.setPassword(password);
-            sfl.edit(existing);
         }
     }
 

@@ -7,68 +7,83 @@ package tut.ac.za.entitiy;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import static tut.ac.za.entitiy.Admin_.id;
 
 /**
  *
- * @author student
+ * @author El
  */
 @Entity
+@Table(name = "STUDENT",
+        uniqueConstraints = {
+            @UniqueConstraint(columnNames = "email")
+        })
+@NamedQueries({
+    @NamedQuery(name = "Student.findByStudentNumber",
+            query = "SELECT s FROM Student s WHERE s.studentNumber = :studentNumber"),
+    @NamedQuery(name = "Student.findByEmail",
+            query = "SELECT s FROM Student s WHERE s.email = :email"),
+    @NamedQuery(name = "Student.findByStudentNumberOrEmail",
+            query = "SELECT s FROM Student s WHERE s.studentNumber = :idOrEmail OR s.email = :idOrEmail")
+})
 public class Student implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Column(nullable = false, updatable = false, length = 20)
+    private String studentNumber;   // PRIMARY KEY
 
-    private String fullname;
-    private Integer studentNo;
+    @Column(nullable = false)
+    private String fullName;
+
+    @Column(nullable = false)
     private String email;
-    private String password;
-    
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date creationDate;
-    
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name="service_stud_fk")
-    private List<Service> service = new ArrayList<>();
+
+    @Column(nullable = false)
+    private String password;        // plain text (as per your rule)
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SupportRequest> requests = new ArrayList<>();
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Feedback> feedbackList = new ArrayList<>();
 
     public Student() {
     }
+    
+    
 
-    public Student(String fullname, Integer studentNo, String email, String password, Date creationDate) {
-        this.fullname = fullname;
-        this.studentNo = studentNo;
+    public Student(String studentNumber, String fullName, String email, String password) {
+        this.studentNumber = studentNumber;
+        this.fullName = fullName;
         this.email = email;
         this.password = password;
-        this.creationDate = creationDate;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getStudentNumber() {
+        return studentNumber;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setStudentNumber(String studentNumber) {
+        this.studentNumber = studentNumber;
     }
 
-    public Integer getStudentNo() {
-        return studentNo;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setStudentNo(Integer studentNo) {
-        this.studentNo = studentNo;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getEmail() {
@@ -87,56 +102,27 @@ public class Student implements Serializable {
         this.password = password;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
+    public List<SupportRequest> getRequests() {
+        return requests;
     }
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+    public void setRequests(List<SupportRequest> requests) {
+        this.requests = requests;
     }
 
-    public List<Service> getService() {
-        return service;
+    public List<Feedback> getFeedbackList() {
+        return feedbackList;
     }
 
-    public void setService(List<Service> service) {
-        this.service = service;
+    public void setFeedbackList(List<Feedback> feedbackList) {
+        this.feedbackList = feedbackList;
     }
     
     
-    
-    
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Student)) {
-            return false;
-        }
-        Student other = (Student) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
 
     @Override
     public String toString() {
-        return "tut.ac.za.entitiy.Student[ id=" + id + " ]";
+        return "za.ac.tut.model.entity.Student[ id=" + id + " ]";
     }
-    
+
 }

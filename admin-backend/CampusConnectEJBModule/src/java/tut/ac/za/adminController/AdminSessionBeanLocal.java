@@ -15,8 +15,8 @@ import javax.ejb.Local;
 @Local
 public interface AdminSessionBeanLocal {
 
-    void createStudent(String fullname, Integer studentNo, String email, String password);
-    void editStudent(String fullname, Integer studentNo, String email, String password);
+    void createStudent(String fullname, String studentNo, String email, String password);
+    void editStudent(String fullname, String studentNo, String email, String password);
     void createAnnouncment(String title, String content);
     void createEvent(String title, String content, Date startDateAndTime, Date endDateAndTime);
 }

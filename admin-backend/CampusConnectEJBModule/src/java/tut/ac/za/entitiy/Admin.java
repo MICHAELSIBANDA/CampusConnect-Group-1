@@ -16,12 +16,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author student
  */
 @Entity
+@Table(name="ADMIN")
 public class Admin implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,7 +39,16 @@ public class Admin implements Serializable {
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="service_admin_fk")
-    private List<Service> service = new ArrayList<>();
+    private List<SupportRequest> requests = new ArrayList<>();
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name="announcment_admin_fk")
+    private List<Announcment> announcments = new ArrayList<>();
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name="event_admin_fk")
+    private List<Event> events = new ArrayList<>();
+    
 
     public Admin() {
     }
@@ -50,6 +61,31 @@ public class Admin implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
+    public List<SupportRequest> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(List<SupportRequest> requests) {
+        this.requests = requests;
+    }
+
+    public List<Announcment> getAnnouncments() {
+        return announcments;
+    }
+
+    public void setAnnouncments(List<Announcment> announcments) {
+        this.announcments = announcments;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
+    }
+
+    
     public String getName() {
         return name;
     }
@@ -89,16 +125,6 @@ public class Admin implements Serializable {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
-    public List<Service> getService() {
-        return service;
-    }
-
-    public void setService(List<Service> service) {
-        this.service = service;
-    }
-    
-    
 
     public Long getId() {
         return id;
