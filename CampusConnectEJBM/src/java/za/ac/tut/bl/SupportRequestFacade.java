@@ -9,6 +9,8 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import za.ac.tut.cc.RequestStatus;
+import za.ac.tut.cc.SupportType;
 import za.ac.tut.model.entity.SupportRequest;
 
 /**
@@ -45,4 +47,21 @@ public class SupportRequestFacade extends AbstractFacade<SupportRequest> impleme
                 .getResultList();
     }
 
-}
+    @Override
+    public int editSupportRequest(Long requestId, String studentNumber, SupportType newType, String newDescription) {
+        return em.createQuery(
+                "UPDATE SupportRequest r "
+                + "SET r.supportType = :t, r.description = :d "
+                + "WHERE r.id = :id "
+                + "AND r.student.studentNumber = :sn "
+                + "AND r.status = :pending"
+        )
+                .setParameter("t", newType)
+                .setParameter("d", newDescription)
+                .setParameter("id", requestId)
+                .setParameter("sn", studentNumber)
+                .setParameter("pending", RequestStatus.PENDING)
+                .executeUpdate(); // returns 1 if updated, 0 if not allowed/not found    
+    }
+
+    }

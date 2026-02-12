@@ -227,6 +227,10 @@ body.light-mode .banner .mode-container {
             Don't have an account?
             <a href="Register.jsp">Register here</a>
         </p>
+        <p class="text-center mt-3">
+            Log as Admin?
+            <a href="Adminlogin.jsp">Admin login here</a>
+        </p>
 
         <!-- Error -->
         <div class="text-center text-danger mt-2">

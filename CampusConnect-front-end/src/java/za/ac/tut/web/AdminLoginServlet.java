@@ -1,0 +1,48 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package za.ac.tut.web;
+
+import java.io.IOException;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import za.ac.tut.model.admin.controller.AdminSessionBeanLocal;
+import za.ac.tut.model.entity.Admin;
+
+/**
+ *
+ * @author El
+ */
+public class AdminLoginServlet extends HttpServlet {
+
+    @EJB
+    private AdminSessionBeanLocal afl;
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String idOrEmail = request.getParameter("email"); // student no OR email
+        String password = request.getParameter("password");
+
+        Admin admin = afl.login(idOrEmail, password);
+
+        if (admin == null) {
+            request.setAttribute("error", "Invalid login details.");
+            RequestDispatcher rd = request.getRequestDispatcher("Adminlogin.jsp");
+            rd.forward(request, response);
+            return;
+        }
+
+        HttpSession session = request.getSession(true);
+        session.setAttribute("email", admin.getEmail());
+
+        response.sendRedirect("Admindashboard.jsp");
+    }
+    }
