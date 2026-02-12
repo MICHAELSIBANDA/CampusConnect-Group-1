@@ -1,37 +1,96 @@
-<%-- 
-    Document   : viewRequests
-    Created on : 12 Feb 2026, 06:26:13
-    Author     : USER
---%>
-
+<%@page import="java.util.List"%>
+<%@page import="za.ac.tut.model.entity.Request"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <title>Admin • View Student Requests</title>
+
+<!-- Bootstrap & Icons -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
 
-
-<!-- SAME STYLING FROM ADMIN PANEL -->
 <style>
-body{background:#0a0c0e;color:white;font-family:Poppins,sans-serif;}
-.card-box{background:rgba(0,0,0,0.85);padding:2rem;border-radius:18px;}
+
+body{
+    background:#0a0c0e;
+    color:white;
+    font-family:Poppins,sans-serif;
+}
+
+/* container */
+.card-box{
+    background:rgba(0,0,0,0.85);
+    padding:2rem;
+    border-radius:18px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.6);
+}
+
+/* filter buttons */
+.filter-btn{
+    background:#222;
+    border:1px solid #333;
+    color:#ccc;
+    padding:6px 14px;
+    border-radius:6px;
+    cursor:pointer;
+    margin-right:10px;
+}
+
+.filter-btn.active,
+.filter-btn:hover{
+    background:#0d6efd;
+    color:white;
+}
+
+/* table */
 table{color:white;}
 th{color:#9fb3c8;}
+
+/* status badges */
+.status-badge{
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+}
+
+.status-pending{background:#ffc107;color:black;}
+.status-approved{background:#28a745;}
+.status-rejected{background:#dc3545;}
+
+/* empty state */
+.empty-state{
+    text-align:center;
+    padding:40px;
+    color:#888;
+}
+
 </style>
 </head>
-<body>
 
+<body>
 
 <div class="container mt-5">
 <div class="card-box">
 
-
 <h3><i class="fa fa-file-lines"></i> All Student Requests</h3>
 <hr/>
 
-<table class="table">
+<!-- ===== FILTER SECTION ===== -->
+<div class="mb-4">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="Pending">Pending</button>
+    <button class="filter-btn" data-filter="Approved">Approved</button>
+    <button class="filter-btn" data-filter="Rejected">Rejected</button>
+</div>
+
+<!-- ===== ENDPOINT SUPPORT ===== -->
+<form action="ViewRequestsServlet.do" method="get">
+
+<table class="table table-hover">
+
 <thead>
 <tr>
 <th>Student No</th>
@@ -39,34 +98,176 @@ th{color:#9fb3c8;}
 <th>Description</th>
 <th>Date</th>
 <th>Status</th>
+<th>Action</th>
 </tr>
 </thead>
 
+<tbody id="requestsTableBody">
 
-<tbody>
-<%-- Example loop from DB --%>
-<%--
+<%
 List<Request> list = (List<Request>)request.getAttribute("requests");
+
+if(list != null && !list.isEmpty()){
 for(Request r : list){
---%>
+String status = r.getStatus();
+%>
 
+<tr data-status="<%= status %>">
 
-<tr>
-<td>S12345</td>
-<td>Tutoring</td>
-<td>Need Java help</td>
-<td>12 Feb</td>
-<td><span class="badge bg-warning">Pending</span></td>
+<td><%= r.getStudent().getStudentNumber() %></td>
+<td><%= r.getSupportType() %></td>
+<td><%= r.getDescription() %></td>
+<td><%= r.getCreatedAt() %></td>
+
+<td>
+<%
+if("Pending".equalsIgnoreCase(status)){
+%>
+<span class="status-badge status-pending">Pending</span>
+<%
+}else if("Approved".equalsIgnoreCase(status)){
+%>
+<span class="status-badge status-approved">Approved</span>
+<%
+}else{
+%>
+<span class="status-badge status-rejected">Rejected</span>
+<%
+}
+%>
+</td>
+
+<td>
+<button type="button"
+        class="btn btn-sm btn-primary view-details"
+        data-student="<%= r.getStudent().getStudentNumber() %>"
+        data-type="<%= r.getSupportType() %>"
+        data-desc="<%= r.getDescription() %>"
+        data-date="<%= r.getCreatedAt() %>"
+        data-status="<%= status %>">
+<i class="fa fa-eye"></i> View
+</button>
+</td>
+
 </tr>
 
-<%-- } --%>
+<%
+}
+}else{
+%>
+
+<tr>
+<td colspan="6" class="text-center">
+No student requests found.
+</td>
+</tr>
+
+<%
+}
+%>
+
 </tbody>
 </table>
+</form>
 
+<!-- EMPTY STATE -->
+<div id="emptyState" class="empty-state" style="display:none;">
+<i class="fa fa-folder-open fa-2x"></i>
+<p>No requests match this filter.</p>
+</div>
 
 </div>
 </div>
 
+<!-- ===== MODAL ===== -->
+<div class="modal fade" id="requestModal">
+<div class="modal-dialog">
+<div class="modal-content bg-dark text-white">
+
+<div class="modal-header">
+<h5>Request Details</h5>
+<button class="btn-close btn-close-white"
+        data-bs-dismiss="modal"></button>
+</div>
+
+<div class="modal-body">
+
+<p><b>Student No:</b> <span id="mStudent"></span></p>
+<p><b>Type:</b> <span id="mType"></span></p>
+<p><b>Description:</b> <span id="mDesc"></span></p>
+<p><b>Date:</b> <span id="mDate"></span></p>
+<p><b>Status:</b> <span id="mStatus"></span></p>
+
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+/* ===== FILTER FUNCTION ===== */
+document.querySelectorAll(".filter-btn")
+.forEach(btn=>{
+btn.addEventListener("click",function(){
+
+document.querySelectorAll(".filter-btn")
+.forEach(b=>b.classList.remove("active"));
+
+this.classList.add("active");
+
+let filter=this.dataset.filter;
+let rows=document.querySelectorAll("#requestsTableBody tr");
+let visible=0;
+
+rows.forEach(r=>{
+let status=r.dataset.status;
+
+if(filter==="all" || status===filter){
+r.style.display="";
+visible++;
+}else{
+r.style.display="none";
+}
+});
+
+document.getElementById("emptyState").style.display =
+visible===0 ? "block":"none";
+
+});
+});
+
+/* ===== MODAL VIEW ===== */
+document.querySelectorAll(".view-details")
+.forEach(btn=>{
+btn.addEventListener("click",function(){
+
+document.getElementById("mStudent").textContent =
+this.dataset.student;
+
+document.getElementById("mType").textContent =
+this.dataset.type;
+
+document.getElementById("mDesc").textContent =
+this.dataset.desc;
+
+document.getElementById("mDate").textContent =
+this.dataset.date;
+
+document.getElementById("mStatus").textContent =
+this.dataset.status;
+
+new bootstrap.Modal(
+document.getElementById("requestModal")
+).show();
+
+});
+});
+
+</script>
 
 </body>
 </html>
