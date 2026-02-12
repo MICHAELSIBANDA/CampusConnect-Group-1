@@ -208,7 +208,7 @@ body.light-mode .banner .mode-container {
         </form>
 
         <p style="text-align:center; margin-top:15px; font-size: 0.95rem;">
-            Already have an account? <a href="#">Login Here</a>
+            Already have an account? <a href="login.jsp">Login Here</a>
         </p>
     </div>
 </div>

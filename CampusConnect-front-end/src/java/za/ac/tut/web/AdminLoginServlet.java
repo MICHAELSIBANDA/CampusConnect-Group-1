@@ -45,7 +45,7 @@ public class AdminLoginServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         session.setAttribute("email", admin.getEmail());
 
-        response.sendRedirect("Admindashboard.jsp");
+        response.sendRedirect("adminDashboard.jsp");
     }
     
 
