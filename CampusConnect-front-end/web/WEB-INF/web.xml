@@ -20,6 +20,22 @@
         <servlet-name>AdminLoginServlet</servlet-name>
         <servlet-class>za.ac.tut.web.AdminLoginServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreateAnnouncementPageServlet</servlet-name>
+        <servlet-class>za.ac.tut.web.CreateAnnouncementPageServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateEventServlet</servlet-name>
+        <servlet-class>za.ac.tut.web.CreateEventServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>viewRequestsServelt</servlet-name>
+        <servlet-class>za.ac.tut.web.viewRequestsServelt</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateRequestServlet</servlet-name>
+        <servlet-class>za.ac.tut.web.UpdateRequestServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/RegisterServlet.do</url-pattern>
@@ -39,6 +55,22 @@
     <servlet-mapping>
         <servlet-name>AdminLoginServlet</servlet-name>
         <url-pattern>/AdminLoginServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateAnnouncementPageServlet</servlet-name>
+        <url-pattern>/CreateAnnouncementPageServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateEventServlet</servlet-name>
+        <url-pattern>/CreateEventServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>viewRequestsServelt</servlet-name>
+        <url-pattern>/viewRequestsServelt.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateRequestServlet</servlet-name>
+        <url-pattern>/UpdateRequestServlet.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

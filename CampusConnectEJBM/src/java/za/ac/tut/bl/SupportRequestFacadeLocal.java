@@ -21,5 +21,6 @@ public interface SupportRequestFacadeLocal {
     List<SupportRequest> findByStudentNumber(String studentNumber);
 
     List<SupportRequest> findRecentByStudentNumber(String studentNumber, int max);
-
+    
+    int count();
 }

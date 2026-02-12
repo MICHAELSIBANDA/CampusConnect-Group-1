@@ -17,7 +17,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import static za.ac.tut.model.entity.Feedback_.id;
 
 /**
  *
@@ -121,8 +120,8 @@ public class Student implements Serializable {
     
 
     @Override
-    public String toString() {
-        return "za.ac.tut.model.entity.Student[ id=" + id + " ]";
-    }
+public String toString() {
+    return "za.ac.tut.model.entity.Student[ studentNumber=" + studentNumber + " ]";
+}
 
 }

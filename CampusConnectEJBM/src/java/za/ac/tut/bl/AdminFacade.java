@@ -13,6 +13,7 @@ import javax.persistence.Query;
 import za.ac.tut.cc.RequestStatus;
 import za.ac.tut.cc.SupportType;
 import za.ac.tut.model.entity.Admin;
+import za.ac.tut.model.entity.Feedback;
 import za.ac.tut.model.entity.Student;
 import za.ac.tut.model.entity.SupportRequest;
 
@@ -67,7 +68,11 @@ public class AdminFacade extends AbstractFacade<Admin> implements AdminFacadeLoc
     public List<SupportRequest> findAllRequests() {
         Query query = em.createQuery("SELECT s FROM SupportRequest s");
         List<SupportRequest> requests = query.getResultList();
+        if (requests.isEmpty()) {
+        return null;
+        } else {
         return requests;
+        }
     }
 
     @Override
@@ -91,5 +96,34 @@ public class AdminFacade extends AbstractFacade<Admin> implements AdminFacadeLoc
         return admin;
         }
     }
+
+    @Override
+    public List<Feedback> findAllFeedBacks() {
+        Query query = em.createQuery("SELECT s FROM Feedback s");
+        List<Feedback> feedbacks = query.getResultList();
+        
+        if (feedbacks.isEmpty()) {
+        return null;
+        } else {
+        return feedbacks;
+        }
+    }
     
+     @Override
+    public int countPending() {
+    Query query = em.createQuery("SELECT COUNT(s) FROM SupportRequest s WHERE s.status = :status");
+    query.setParameter("status", RequestStatus.PENDING);
+
+    Long count = (Long) query.getSingleResult();
+    return count.intValue();
+    }
+
+    @Override
+    public int countCompleted() {
+    Query query = em.createQuery("SELECT COUNT(s) FROM SupportRequest s WHERE s.status = :status");
+    query.setParameter("status", RequestStatus.COMPLETED);
+
+    Long count = (Long) query.getSingleResult();
+    return count.intValue();
+    }
 }

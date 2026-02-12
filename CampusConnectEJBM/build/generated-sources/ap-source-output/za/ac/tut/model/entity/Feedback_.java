@@ -7,7 +7,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import za.ac.tut.cc.SupportType;
 import za.ac.tut.model.entity.Student;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2026-02-11T21:51:24")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2026-02-12T20:23:00")
 @StaticMetamodel(Feedback.class)
 public class Feedback_ { 
 

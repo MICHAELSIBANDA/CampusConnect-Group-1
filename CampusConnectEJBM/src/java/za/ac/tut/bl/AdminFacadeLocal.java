@@ -10,6 +10,7 @@ import javax.ejb.Local;
 import za.ac.tut.cc.RequestStatus;
 import za.ac.tut.cc.SupportType;
 import za.ac.tut.model.entity.Admin;
+import za.ac.tut.model.entity.Feedback;
 import za.ac.tut.model.entity.Student;
 import za.ac.tut.model.entity.SupportRequest;
 
@@ -33,5 +34,10 @@ public interface AdminFacadeLocal {
     List<SupportRequest> findAllRequestsForSpecificType(SupportType type); // View Services e.g by tutors/ consultations
     
     Admin findAdmin(String email);
+
+    public List<Feedback> findAllFeedBacks();
     
+    int countPending();
+    
+    int countCompleted();
 }

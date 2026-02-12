@@ -6,8 +6,11 @@
 package za.ac.tut.model.admin.controller;
 
 import java.util.Date;
+import java.util.List;
 import javax.ejb.Local;
 import za.ac.tut.model.entity.Admin;
+import za.ac.tut.model.entity.Feedback;
+import za.ac.tut.model.entity.SupportRequest;
 
 /**
  *
@@ -17,13 +20,15 @@ import za.ac.tut.model.entity.Admin;
 public interface AdminSessionBeanLocal {
 
     void createStudent(String fullname, String studentNo, String email, String password);
-    void editStudent(String fullname, String studentNo, String email, String password);
+    //void editStudent(String fullname, String studentNo, String email, String password);
     void createAnnouncment(String title, String content);
-    void editAnnouncment(Long id,String title, String content);
-    void removeAnnouncment(Long id);
+    //void editAnnouncment(Long id,String title, String content);
+    //void removeAnnouncment(Long id);
     void createEvent(String title, String content, Date startDateAndTime, Date endDateAndTime);
-    void editEvent(Long id, String title, String content, Date startDateAndTime, Date endDateAndTime);
-    void removeEvent(Long id);
+    //void editEvent(Long id, String title, String content, Date startDateAndTime, Date endDateAndTime);
+    //void removeEvent(Long id);
     Admin login(String email,String password);
-
+    List<SupportRequest> viewAllRequests();
+    void updateRequestStatus(Long requestId, String status);
+    List<Feedback> viewFeedBackReports();
 }

@@ -6,16 +6,21 @@
 package za.ac.tut.model.admin.controller;
 
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import za.ac.tut.bl.AdminFacadeLocal;
 import za.ac.tut.bl.AnnouncmentFacadeLocal;
 import za.ac.tut.bl.EventFacadeLocal;
 import za.ac.tut.bl.StudentFacadeLocal;
+import za.ac.tut.cc.RequestStatus;
+import za.ac.tut.cc.ejb.StudentServiceLocal;
 import za.ac.tut.model.entity.Admin;
 import za.ac.tut.model.entity.Announcment;
 import za.ac.tut.model.entity.Event;
+import za.ac.tut.model.entity.Feedback;
 import za.ac.tut.model.entity.Student;
+import za.ac.tut.model.entity.SupportRequest;
 
 /**
  *
@@ -25,6 +30,8 @@ import za.ac.tut.model.entity.Student;
 public class AdminSessionBean implements AdminSessionBeanLocal {
 @EJB
 private StudentFacadeLocal sfl;
+@EJB
+private StudentServiceLocal ssl;
 @EJB
 private AdminFacadeLocal afl;
 @EJB
@@ -38,12 +45,11 @@ private EventFacadeLocal efl;
         Student existing = afl.findStudent(studentNo);
         
         if (existing == null) {
-           Student student = new Student(fullname, studentNo, email, password);
-           sfl.create(student);
+            ssl.register(studentNo, fullname, email, password);
         }
         
     }
-
+/*
      @Override
     public void editStudent(String fullname, String studentNo, String email, String password) {
         Student existing = sfl.find(studentNo);
@@ -56,7 +62,7 @@ private EventFacadeLocal efl;
             sfl.edit(existing);
         }
     }
-
+*/
     @Override
     public void createAnnouncment(String title, String content) {
         Announcment announcment = new Announcment(title, content, new Date());
@@ -68,7 +74,7 @@ private EventFacadeLocal efl;
         Event event = new Event(title, content, startDateAndTime, endDateAndTime, new Date());
         efl.create(event);
     }
-
+/*
     @Override
     public void editEvent(Long id, String title, String content, Date startDateAndTime, Date endDateAndTime) {
         Event existing = efl.find(id);
@@ -105,9 +111,7 @@ private EventFacadeLocal efl;
         annfl.remove(existing);
     }
 
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+*/
 
     @Override
     public Admin login(String email, String password) {
@@ -118,5 +122,36 @@ private EventFacadeLocal efl;
 
         return password != null && password.equals(admin.getPassword()) ? admin : null;
     }
+
+    @Override
+    public List<SupportRequest> viewAllRequests() {
+        List<SupportRequest> requests = afl.findAllRequests();
+        return requests;
+    }
+
+    @Override
+    public void updateRequestStatus(Long requestId, String status) {
+        status = status.toUpperCase();
+        RequestStatus rs = RequestStatus.PENDING;
+        
+        if (status.equalsIgnoreCase("PENDING")) {
+            rs = RequestStatus.PENDING;
+        } else if (status.equalsIgnoreCase("APPROVED")) {
+            rs = RequestStatus.APPROVED;
+        }else if (status.equalsIgnoreCase("REJECTED")) {
+            rs = RequestStatus.REJECTED;
+        }else if (status.equalsIgnoreCase("COMPLETED")) {
+            rs = RequestStatus.COMPLETED;
+        }
+        
+        afl.updateStatus(requestId, rs);
+    }
+
+    @Override
+    public List<Feedback> viewFeedBackReports() {
+        List<Feedback> feedbacks = afl.findAllFeedBacks();
+        return feedbacks;
+    }
+
 
 }

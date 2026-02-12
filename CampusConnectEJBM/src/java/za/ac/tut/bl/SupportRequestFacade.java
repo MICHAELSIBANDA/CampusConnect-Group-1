@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import za.ac.tut.model.entity.SupportRequest;
 
 /**
@@ -44,5 +45,7 @@ public class SupportRequestFacade extends AbstractFacade<SupportRequest> impleme
                 .setMaxResults(max)
                 .getResultList();
     }
+
+   
 
 }
