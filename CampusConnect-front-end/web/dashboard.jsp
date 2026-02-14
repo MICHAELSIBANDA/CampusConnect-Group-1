@@ -4,6 +4,7 @@
     Author     : untsa
 --%>
 
+<%@page import="za.ac.tut.model.entity.Student"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -152,7 +153,7 @@ html, body {
 <!-- Row 2 -->
 <div class="row g-4 mt-1">
     <div class="col-md-6">
-        <a href="track_request.jsp" class="text-decoration-none">
+        <a href="TrackRequestsServlet.do" class="text-decoration-none">
             <div class="feature-box">
             <h6>Track Requests</h6>
             <i class="fa-solid fa-clipboard-list"></i>

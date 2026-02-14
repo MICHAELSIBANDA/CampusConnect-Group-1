@@ -57,7 +57,7 @@ public class AdminLoginServlet extends HttpServlet {
         session.setAttribute("countPending", countPending);
         session.setAttribute("countCompleted", countCompleted);
 
-        response.sendRedirect("adminDashboard.jsp");
+        response.sendRedirect("Admindashboard.jsp");
     }
     
 

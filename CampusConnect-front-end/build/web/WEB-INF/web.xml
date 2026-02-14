@@ -36,6 +36,18 @@
         <servlet-name>UpdateRequestServlet</servlet-name>
         <servlet-class>za.ac.tut.web.UpdateRequestServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditRequestServlet</servlet-name>
+        <servlet-class>za.ac.tut.web.EditRequestServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SubmitFeedbacksServlet</servlet-name>
+        <servlet-class>za.ac.tut.web.SubmitFeedbacksServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TrackRequestsServlet</servlet-name>
+        <servlet-class>za.ac.tut.web.TrackRequestsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/RegisterServlet.do</url-pattern>
@@ -71,6 +83,18 @@
     <servlet-mapping>
         <servlet-name>UpdateRequestServlet</servlet-name>
         <url-pattern>/UpdateRequestServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditRequestServlet</servlet-name>
+        <url-pattern>/EditRequestServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubmitFeedbacksServlet</servlet-name>
+        <url-pattern>/SubmitFeedbacksServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TrackRequestsServlet</servlet-name>
+        <url-pattern>/TrackRequestsServlet.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -25,6 +25,8 @@ public interface AdminFacadeLocal {
     
     List<Student> findAllStudents(); // View all students in DataBase
     
+    List<SupportRequest> findReguestsForSpecificStudent(String studentNumber);
+    
     Student findStudent(String studentNo); // View for a specific student
     
     void updateStatus(Long requestId, RequestStatus status); // update the status

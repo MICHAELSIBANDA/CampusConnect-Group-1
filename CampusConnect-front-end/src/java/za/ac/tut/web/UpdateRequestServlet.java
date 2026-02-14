@@ -53,7 +53,7 @@ public class UpdateRequestServlet extends HttpServlet {
         session.setAttribute("countPending", countPending);
         session.setAttribute("countCompleted", countCompleted);
 
-        RequestDispatcher disp = request.getRequestDispatcher("adminDashboard.jsp");
+        RequestDispatcher disp = request.getRequestDispatcher("Admindashboard.jsp");
         disp.forward(request, response);
     }
 }

@@ -82,9 +82,9 @@ th{color:#9fb3c8;}
 <!-- ===== FILTER SECTION ===== -->
 <div class="mb-4">
     <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="Pending">Pending</button>
-    <button class="filter-btn" data-filter="Approved">Approved</button>
-    <button class="filter-btn" data-filter="Rejected">Rejected</button>
+    <button class="filter-btn" data-filter="PENDING">Pending</button>
+    <button class="filter-btn" data-filter="APPROVED">Approved</button>
+    <button class="filter-btn" data-filter="REJECTED">Rejected</button>
 </div>
 
 <!-- ===== ENDPOINT SUPPORT ===== -->

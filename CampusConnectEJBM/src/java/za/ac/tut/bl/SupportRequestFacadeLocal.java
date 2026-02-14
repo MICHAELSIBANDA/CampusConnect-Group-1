@@ -7,6 +7,7 @@ package za.ac.tut.bl;
 
 import java.util.List;
 import javax.ejb.Local;
+import za.ac.tut.cc.SupportType;
 import za.ac.tut.model.entity.SupportRequest;
 
 /**
@@ -18,9 +19,11 @@ public interface SupportRequestFacadeLocal {
 
     void create(SupportRequest supportRequest);
 
+    int editSupportRequest(Long requestId, String studentNumber, SupportType newType, String newDescription);
+
     List<SupportRequest> findByStudentNumber(String studentNumber);
 
     List<SupportRequest> findRecentByStudentNumber(String studentNumber, int max);
-    
+
     int count();
 }

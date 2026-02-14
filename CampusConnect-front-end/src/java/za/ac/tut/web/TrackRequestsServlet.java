@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import za.ac.tut.bl.AdminFacadeLocal;
 import za.ac.tut.bl.SupportRequestFacadeLocal;
+import za.ac.tut.model.entity.Student;
 import za.ac.tut.model.entity.SupportRequest;
 
 /**
@@ -23,22 +25,36 @@ import za.ac.tut.model.entity.SupportRequest;
  */
 public class TrackRequestsServlet extends HttpServlet {
 
-    @EJB SupportRequestFacadeLocal requestFacade;
+    @EJB
+    SupportRequestFacadeLocal requestFacade;
 
+    @EJB
+    private AdminFacadeLocal asbl;
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
-        String studentNumber = (session != null) ? (String) session.getAttribute("studentNumber") : null;
+
+        if (session == null || session.getAttribute("student") == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+        
+        Student s = (Student) session.getAttribute("student");
+        String studentNumber = s.getStudentNumber();
 
         if (studentNumber == null) {
             response.sendRedirect("../login.jsp");
             return;
         }
 
-        List<SupportRequest> all = requestFacade.findByStudentNumber(studentNumber);
-        request.setAttribute("requests", all);
+        //List<SupportRequest> all = requestFacade.findByStudentNumber(studentNumber);
+        
+        List<SupportRequest> list = asbl.findReguestsForSpecificStudent(studentNumber);
+        
+        request.setAttribute("list", list);
 
         RequestDispatcher rd = request.getRequestDispatcher("track_request.jsp");
         rd.forward(request, response);
