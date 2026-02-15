@@ -39,7 +39,7 @@ private AdminSessionBeanLocal asbl;
         
         asbl.createAnnouncment(title, content);
         
-        RequestDispatcher disp = request.getRequestDispatcher("adminDashboard.jsp");
+        RequestDispatcher disp = request.getRequestDispatcher("Admindashboard.jsp");
         disp.forward(request, response);
     }
 }

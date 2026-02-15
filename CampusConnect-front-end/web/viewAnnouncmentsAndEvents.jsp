@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>CampusConnect • Feedbacks</title>
+<title>CampusConnect • Announcements & Events</title>
 
 <!-- Bootstrap & Icons -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
@@ -33,6 +33,7 @@ body {
 .top-bar h4 {
     margin:0;
     font-weight:600;
+    letter-spacing:-0.5px;
 }
 
 .top-bar a {
@@ -54,20 +55,19 @@ body {
 .container-main {
     max-width: 1000px;
     margin: 30px auto;
-    padding-bottom:50px;
 }
 
-/* ===== SECTION TITLE ===== */
+/* ===== SECTION TITLES ===== */
 .section-title {
     font-weight:600;
-    margin-bottom:20px;
+    margin-bottom:15px;
     font-size:1.4rem;
     border-left:4px solid #2a6ebb;
     padding-left:10px;
 }
 
-/* ===== FEEDBACK CARDS ===== */
-.feedback-card {
+/* ===== CARDS ===== */
+.card-announcement, .card-event {
     background: rgba(0,0,0,0.85);
     border:1px solid rgba(255,255,255,0.05);
     border-radius:12px;
@@ -77,32 +77,33 @@ body {
     transition:0.3s;
 }
 
-.feedback-card:hover {
-    transform:translateY(-3px);
+.card-announcement:hover, .card-event:hover {
+    transform:translateY(-5px);
     border-color:#2a6ebb;
 }
 
-.feedback-header {
+/* ===== CARD HEADERS ===== */
+.card-header {
     display:flex;
     justify-content:space-between;
     align-items:center;
     margin-bottom:10px;
 }
 
-.feedback-header h5 {
+.card-header h5 {
     margin:0;
     font-weight:600;
 }
 
-.feedback-header span {
+.card-header span {
     font-size:0.9rem;
     color:#9aa3ad;
 }
 
-.feedback-content {
+/* ===== CARD CONTENT ===== */
+.card-content {
     color:#e8edf2;
     font-size:0.95rem;
-    white-space:pre-line;
 }
 
 /* ===== EMPTY STATE ===== */
@@ -123,36 +124,59 @@ body {
 
 <!-- ===== TOP NAVBAR ===== -->
 <div class="top-bar">
-    <h4><i class="fa-regular fa-message"></i> Student Feedbacks</h4>
+    <h4><i class="fa-solid fa-bullhorn"></i> Announcements & Events</h4>
     <div>
-        <a href="Admindashboard.jsp"><i class="fa-solid fa-house"></i> Dashboard</a>
+        <a href="dashboard.jsp"><i class="fa-solid fa-house"></i> Dashboard</a>
         <a href="LogoutServlet.do"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
     </div>
 </div>
 
 <div class="container-main">
 
-    <h3 class="section-title"><i class="fa-regular fa-message"></i> All Feedbacks</h3>
-
+    <!-- ===== ANNOUNCEMENTS ===== -->
+    <h3 class="section-title"><i class="fa-solid fa-bullhorn"></i> Announcements</h3>
     <c:choose>
-        <c:when test="${not empty feedbacks}">
-            <c:forEach var="fb" items="${feedbacks}">
-                <div class="feedback-card">
-                    <div class="feedback-header">
-                        <h5>Student: <c:out value="${fb.student.studentNumber}"/></h5>
-                        <span><c:out value="${fb.createdAt}"/></span>
+        <c:when test="${not empty announcments}">
+            <c:forEach var="ann" items="${announcments}">
+                <div class="card-announcement">
+                    <div class="card-header">
+                        <h5><c:out value="${ann.title}"/></h5>
+                        <span><c:out value="${ann.publishedDate}"/></span>
                     </div>
-                    <div class="feedback-content">
-                        <strong>Service:</strong> <c:out value="${fb.relatedService}"/><br/>
-                        <strong>Rating:</strong> <c:out value="${fb.rating}"/>/5<br/><br/>
-                        <c:out value="${fb.comments}"/>
+                    <div class="card-content">
+                        <c:out value="${ann.content}"/>
                     </div>
                 </div>
             </c:forEach>
         </c:when>
         <c:otherwise>
             <div class="empty-state">
-                No feedbacks submitted yet.
+                No announcements available at the moment.
+            </div>
+        </c:otherwise>
+    </c:choose>
+
+    <!-- ===== EVENTS ===== -->
+    <h3 class="section-title"><i class="fa-solid fa-calendar-days"></i> Events</h3>
+    <c:choose>
+        <c:when test="${not empty events}">
+            <c:forEach var="ev" items="${events}">
+                <div class="card-event">
+                    <div class="card-header">
+                        <h5><c:out value="${ev.title}"/></h5>
+                        <span>
+                            <c:out value="${ev.startDateAndTime}"/> - <c:out value="${ev.endDateAndTime}"/>
+                        </span>
+                    </div>
+                    <div class="card-content">
+                        <c:out value="${ev.content}"/>
+                    </div>
+                </div>
+            </c:forEach>
+        </c:when>
+        <c:otherwise>
+            <div class="empty-state">
+                No events scheduled at the moment.
             </div>
         </c:otherwise>
     </c:choose>

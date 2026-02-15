@@ -48,6 +48,14 @@
         <servlet-name>TrackRequestsServlet</servlet-name>
         <servlet-class>za.ac.tut.web.TrackRequestsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewAnnouncmentsAndEventsServlet</servlet-name>
+        <servlet-class>za.ac.tut.web.ViewAnnouncmentsAndEventsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewFeedbacksServlet</servlet-name>
+        <servlet-class>za.ac.tut.web.ViewFeedbacksServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/RegisterServlet.do</url-pattern>
@@ -95,6 +103,14 @@
     <servlet-mapping>
         <servlet-name>TrackRequestsServlet</servlet-name>
         <url-pattern>/TrackRequestsServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewAnnouncmentsAndEventsServlet</servlet-name>
+        <url-pattern>/ViewAnnouncmentsAndEventsServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewFeedbacksServlet</servlet-name>
+        <url-pattern>/ViewFeedbacksServlet.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

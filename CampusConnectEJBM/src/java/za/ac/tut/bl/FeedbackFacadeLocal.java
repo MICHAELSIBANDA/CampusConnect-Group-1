@@ -20,4 +20,5 @@ public interface FeedbackFacadeLocal {
 
     List<Feedback> findByStudentNumber(String studentNumber);
 
+    List<Feedback> findAll();
 }

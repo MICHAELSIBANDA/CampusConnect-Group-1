@@ -91,7 +91,7 @@ Integer countCompleted = (Integer)session.getAttribute("countCompleted");
         <div class="nav-pills-custom">
 
             <!-- Dashboard -->
-            <a href="adminDashboard.jsp" class="nav-pill-item">
+            <a href="Admindashboard.jsp" class="nav-pill-item">
                 <i class="fa-solid fa-chart-pie"></i> Dashboard
             </a>
 
@@ -116,7 +116,7 @@ Integer countCompleted = (Integer)session.getAttribute("countCompleted");
             </a>
 
             <!-- Feedback -->
-            <a href="viewFeedback.jsp" class="nav-pill-item">
+            <a href="ViewFeedbacksServlet.do" class="nav-pill-item">
                 <i class="fa-regular fa-message"></i> View Feedbacks
             </a>
 

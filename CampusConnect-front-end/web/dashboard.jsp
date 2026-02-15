@@ -143,10 +143,12 @@ html, body {
     </div>
 
     <div class="col-md-6">
+        <a href="ViewAnnouncmentsAndEventsServlet.do" class="text-decoration-none">
         <div class="feature-box">
-            <h6>Announcements</h6>
+            <h6>Announcements & Events</h6>
             <i class="fa-solid fa-bullhorn"></i>
         </div>
+        </a>
     </div>
 </div>
 

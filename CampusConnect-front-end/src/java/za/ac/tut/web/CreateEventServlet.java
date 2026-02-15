@@ -48,7 +48,7 @@ public class CreateEventServlet extends HttpServlet {
             
             asbl.createEvent(title, content, startDateAndTime, endDateAndTime);
             
-            RequestDispatcher disp = request.getRequestDispatcher("adminDashboard.jsp");
+            RequestDispatcher disp = request.getRequestDispatcher("Admindashboard.jsp");
             disp.forward(request, response);
         } catch (ParseException ex) {
             Logger.getLogger(CreateEventServlet.class.getName()).log(Level.SEVERE, null, ex);
