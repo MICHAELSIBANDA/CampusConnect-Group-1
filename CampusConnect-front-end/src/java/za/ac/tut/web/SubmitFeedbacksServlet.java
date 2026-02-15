@@ -3,7 +3,6 @@ package za.ac.tut.web;
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 import za.ac.tut.bl.FeedbackFacadeLocal;
@@ -21,79 +20,87 @@ public class SubmitFeedbacksServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
-        Student student = (Student) session.getAttribute("student");
-        if (session == null || student == null) {
+
+        // 1️⃣ Check session
+        if (session == null) {
             response.sendRedirect("login.jsp");
             return;
         }
 
-        
-
+        Student student = (Student) session.getAttribute("student");
         if (student == null) {
-            String studentNumber = (String) session.getAttribute("studentNumber");
-            if (studentNumber == null) {
-                response.sendRedirect("login.jsp");
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        try {
+            // 2️⃣ Get form parameters
+            String serviceStr = request.getParameter("service");
+            String ratingStr = request.getParameter("rating");
+            String comment = request.getParameter("comment");
+
+            // 3️⃣ Validate input
+            if (serviceStr == null || serviceStr.isEmpty() ||
+                ratingStr == null || ratingStr.isEmpty() ||
+                comment == null || comment.trim().isEmpty()) {
+
+                request.setAttribute("errorMessage", "Please complete all fields.");
+                // Forward to error JSP
+                request.getRequestDispatcher("feedbackSuccessError.jsp").forward(request, response);
                 return;
             }
 
+            // 4️⃣ Parse rating safely
+            int rating;
             try {
-                // 1) Get form data
-                String serviceStr = request.getParameter("service");
-                String ratingStr = request.getParameter("rating");
-                String comment = request.getParameter("comment");
-
-                if (serviceStr == null || ratingStr == null || comment == null || comment.trim().isEmpty()) {
-                    request.setAttribute("errorMessage", "Please complete all fields.");
-                    request.getRequestDispatcher("feedback.jsp").forward(request, response);
-                    return;
+                rating = Integer.parseInt(ratingStr);
+                if (rating < 1 || rating > 5) {
+                    throw new NumberFormatException("Rating must be between 1 and 5.");
                 }
-
-                int rating = Integer.parseInt(ratingStr);
-
-
-                // 3) Map service string -> SupportType safely
-                SupportType service = mapServiceToSupportType(serviceStr);
-
-                // 4) Create entity and persist
-                Feedback feedback = new Feedback(student, service, rating, comment.trim());
-                feedbackFacade.create(feedback);
-
-                // 5) Forward (recommended) so success page can read request attributes if you want
-                request.setAttribute("saved", true);
-                request.setAttribute("service", serviceStr);
-                request.setAttribute("rating", rating);
-                request.setAttribute("comment", comment.trim());
-                request.getRequestDispatcher("feedbackSuccess.jsp").forward(request, response);
-
-            // If you prefer redirect, keep sendRedirect, but then you can't rely on request attributes:
-                // response.sendRedirect("feedbackSuccess.jsp");
-            } catch (Exception e) {
-                e.printStackTrace();
-                request.setAttribute("errorMessage", "Feedback submission failed: " + e.getMessage());
-                request.getRequestDispatcher("feedback.jsp").forward(request, response);
+            } catch (NumberFormatException ex) {
+                request.setAttribute("errorMessage", "Invalid rating value.");
+                request.getRequestDispatcher("feedbackSuccessError.jsp").forward(request, response);
+                return;
             }
+
+            // 5️⃣ Convert service string to enum
+            SupportType service = mapServiceToSupportType(serviceStr);
+
+            // 6️⃣ Create feedback entity
+            Feedback feedback = new Feedback();
+            feedback.setStudent(student);
+            feedback.setRelatedService(service);
+            feedback.setRating(rating);
+            feedback.setComments(comment.trim());
+
+            // 7️⃣ Persist to database
+            feedbackFacade.create(feedback);
+
+            // 8️⃣ Forward to success JSP
+            request.setAttribute("saved", true);
+            request.setAttribute("feedback", feedback);
+            request.getRequestDispatcher("feedbackSuccess.jsp").forward(request, response);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "Feedback submission failed: " + e.getMessage());
+            request.getRequestDispatcher("feedbackSuccessError.jsp").forward(request, response);
         }
     }
 
-    
-
+    // ✅ Safe service mapping
     private SupportType mapServiceToSupportType(String serviceStr) {
-        // Your dropdown values:
-        // Tutoring Support, Academic Consultation, IT Help Desk, Accommodation Services, Library Services, Student Administration
+        if (serviceStr == null) {
+            throw new IllegalArgumentException("Service cannot be null");
+        }
 
         String s = serviceStr.trim().toLowerCase();
-
         if (s.contains("tutoring")) {
             return SupportType.TUTORING;
-        }
-        if (s.contains("consultation")) {
+        } else if (s.contains("consultation")) {
             return SupportType.CONSULTATION;
         }
 
-        // If your SupportType enum doesn't have these, either:
-        // 1) add them to SupportType, OR
-        // 2) create a separate enum FeedbackService
-        // For now, throw a clear error:
         throw new IllegalArgumentException("Unsupported service: " + serviceStr);
     }
 }

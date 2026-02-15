@@ -8,7 +8,7 @@ import za.ac.tut.model.entity.Announcment;
 import za.ac.tut.model.entity.Event;
 import za.ac.tut.model.entity.SupportRequest;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2026-02-14T14:41:21")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2026-02-15T04:55:45")
 @StaticMetamodel(Admin.class)
 public class Admin_ { 
 

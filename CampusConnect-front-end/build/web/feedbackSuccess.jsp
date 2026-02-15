@@ -1,11 +1,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CampusConnect • Feedback Submitted</title>
+    <title>CampusConnect • Feedback Saved</title>
 
     <!-- Bootstrap & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
@@ -29,22 +28,6 @@
 
         .banner-title{
             font-weight:600;
-            letter-spacing:-0.5px;
-        }
-
-        .dashboard-link{
-            color:#9dc6ff;
-            text-decoration:none;
-            font-weight:500;
-            background:rgba(70,130,200,0.2);
-            padding:0.4rem 1rem;
-            border-radius:20px;
-            transition:0.2s;
-        }
-
-        .dashboard-link:hover{
-            background:#2a6ebb;
-            color:white;
         }
 
         .result-box{
@@ -65,27 +48,9 @@
             padding:0.45rem 0.9rem;
             border-radius:999px;
             font-weight:600;
-            border:1px solid rgba(255,255,255,0.08);
-            background:#111;
-            color:#cfd6dd;
-        }
-
-        .pill.success{
             background:rgba(25,135,84,0.18);
-            border-color:rgba(25,135,84,0.35);
+            border:1px solid rgba(25,135,84,0.35);
             color:#7ee2b8;
-        }
-
-        .pill.warn{
-            background:rgba(255,193,7,0.14);
-            border-color:rgba(255,193,7,0.3);
-            color:#ffe08a;
-        }
-
-        .pill.bad{
-            background:rgba(220,53,69,0.16);
-            border-color:rgba(220,53,69,0.3);
-            color:#ff9aa4;
         }
 
         .meta{
@@ -105,7 +70,6 @@
             font-weight:600;
             color:#e8edf2;
             margin:0.1rem 0 0.8rem 0;
-            word-break:break-word;
         }
 
         .stars i{
@@ -141,129 +105,66 @@
 
 <body>
 
-<!-- ===== TOP BANNER ===== -->
 <div class="top-banner">
     <h4 class="banner-title">
         <i class="fa-solid fa-circle-check"></i>
-        Feedback Outcome
+        Feedback Saved
     </h4>
-
-    <a href="dashboard.jsp" class="dashboard-link">
-        <i class="fa-solid fa-arrow-left"></i>
-        Back to Dashboard
-    </a>
 </div>
 
-<!-- ===== OUTCOME CARD ===== -->
 <div class="result-box">
 
-    <c:choose>
-        <!-- SUCCESS CASE -->
-        <c:when test="${requestScope.saved eq true || requestScope.success eq true}">
-            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
-                <h3 class="m-0">
-                    <i class="fa-solid fa-paper-plane"></i>
-                    Feedback Submitted
-                </h3>
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+        <h3 class="m-0">
+            <i class="fa-solid fa-paper-plane"></i>
+            Feedback Saved
+        </h3>
 
-                <span class="pill success">
-                    <i class="fa-solid fa-check"></i>
-                    Saved successfully
-                </span>
-            </div>
+        <span class="pill">
+            <i class="fa-solid fa-check"></i>
+            Submitted
+        </span>
+    </div>
 
-            <hr/>
+    <hr/>
 
-            <p class="text-light" style="opacity:0.9;">
-                Thanks! Your feedback has been recorded and will help improve CampusConnect services.
-            </p>
+    <p style="opacity:0.9;">
+        Your feedback has been saved.
+    </p>
 
-            <!-- Feedback summary (works whether you pass a feedback object or individual params) -->
-            <div class="meta">
-                <div class="label">Service</div>
-                <div class="value">
-                    <c:out value="${requestScope.feedback.service}" default="${param.service}"/>
-                </div>
+    <div class="meta">
 
-                <div class="label">Rating</div>
-                <div class="value d-flex align-items-center gap-2">
-                    <c:set var="ratingVal" value="${not empty requestScope.feedback.rating ? requestScope.feedback.rating : param.rating}"/>
-                    <span>${ratingVal}</span>
-                    <span class="stars">
-                        <c:forEach begin="1" end="${empty ratingVal ? 0 : ratingVal}" var="i">
-                            <i class="fa-solid fa-star"></i>
-                        </c:forEach>
-                    </span>
-                </div>
+        <div class="label">Service</div>
+        <div class="value">
+            <c:out value="${feedback.relatedService}"/>
+        </div>
 
-                <div class="label">Comment</div>
-                <div class="value" style="font-weight:500; opacity:0.95;">
-                    <c:out value="${requestScope.feedback.comment}" default="${param.comment}"/>
-                </div>
+        <div class="label">Rating</div>
+        <div class="value d-flex align-items-center gap-2">
+            <span>${feedback.rating}</span>
+            <span class="stars">
+                <c:forEach begin="1" end="${feedback.rating}" var="i">
+                    <i class="fa-solid fa-star"></i>
+                </c:forEach>
+            </span>
+        </div>
 
-                <!-- Optional: show an ID or timestamp if your servlet sets it -->
-                
-                <c:if test="${not empty requestScope.savedAt}">
-                    <div class="label">Saved At</div>
-                    <div class="value">${requestScope.savedAt}</div>
-                </c:if>
-            </div>
+        <div class="label">Comment</div>
+        <div class="value">
+            <c:out value="${feedback.comments}"/>
+        </div>
 
-            <div class="d-flex gap-2 mt-4 flex-wrap">
-                <a class="btn btn-main" href="dashboard.jsp">
-                    <i class="fa-solid fa-house"></i> Dashboard
-                </a>
+    </div>
 
-                <a class="btn btn-ghost" href="feedback.jsp">
-                    <i class="fa-solid fa-rotate-left"></i> Submit Another
-                </a>
-            </div>
-        </c:when>
+    <div class="d-flex gap-2 mt-4 flex-wrap">
+        <a class="btn btn-main" href="dashboard.jsp">
+            <i class="fa-solid fa-house"></i> Dashboard
+        </a>
 
-        <!-- FAILURE CASE -->
-        <c:otherwise>
-            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
-                <h3 class="m-0">
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                    Feedback Not Saved
-                </h3>
-
-                <span class="pill bad">
-                    <i class="fa-solid fa-xmark"></i>
-                    Something went wrong
-                </span>
-            </div>
-
-            <hr/>
-
-            <p class="text-light" style="opacity:0.9;">
-                Your feedback could not be saved. Please try again. If the problem continues, contact support.
-            </p>
-
-            <c:if test="${not empty requestScope.error}">
-                <div class="meta">
-                    <div class="label">Error</div>
-                    <div class="value" style="color:#ff9aa4;">
-                        <c:out value="${requestScope.error}"/>
-                    </div>
-                </div>
-            </c:if>
-
-            <div class="d-flex gap-2 mt-4 flex-wrap">
-                <a class="btn btn-main" href="feedback.jsp">
-                    <i class="fa-solid fa-rotate-left"></i> Try Again
-                </a>
-
-                <a class="btn btn-ghost" href="dashboard.jsp">
-                    <i class="fa-solid fa-house"></i> Dashboard
-                </a>
-            </div>
-
-            <p class="mt-3" style="opacity:0.65; font-size:0.9rem;">
-                Tip: Make sure you selected a service, chose a rating, and typed a comment.
-            </p>
-        </c:otherwise>
-    </c:choose>
+        <a class="btn btn-ghost" href="LogoutServlet.do">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </a>
+    </div>
 
 </div>
 

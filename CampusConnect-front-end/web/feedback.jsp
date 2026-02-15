@@ -148,10 +148,12 @@
             <option value="">-- Select Service --</option>
             <option>Tutoring Support</option>
             <option>Academic Consultation</option>
+            <!--
             <option>IT Help Desk</option>
             <option>Accommodation Services</option>
             <option>Library Services</option>
             <option>Student Administration</option>
+            -->
         </select>
 
 
