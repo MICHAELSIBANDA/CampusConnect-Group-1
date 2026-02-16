@@ -177,19 +177,7 @@ html, body {
 
 
 
-<!-- Recent Requests Section -->
-<div class="requests-box">
-    <h6>RECENT REQUESTS:</h6>
 
-    <div class="requests-row">
-        Math Tutoring | Pending | 2024-10-01
-    </div>
-
-    <div class="requests-row">
-        Consultation | Approved | 2024-09-28
-    </div>
-
-</div>
 
 </div>
 </div>

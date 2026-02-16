@@ -8,7 +8,7 @@ import za.ac.tut.cc.RequestStatus;
 import za.ac.tut.cc.SupportType;
 import za.ac.tut.model.entity.Student;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2026-02-15T06:46:28")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2026-02-16T07:33:02")
 @StaticMetamodel(SupportRequest.class)
 public class SupportRequest_ { 
 

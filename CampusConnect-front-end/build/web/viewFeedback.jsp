@@ -117,6 +117,21 @@ body {
 @media(max-width:768px) {
     .top-bar { flex-direction: column; gap:10px; }
 }
+.dashboard-link{
+            color:#9dc6ff;
+            text-decoration:none;
+            font-weight:500;
+            background:rgba(70,130,200,0.2);
+            padding:0.4rem 1rem;
+            border-radius:20px;
+            transition:0.2s;
+        }
+
+        .dashboard-link:hover{
+            background:#2a6ebb;
+            color:white;
+        }
+
 </style>
 </head>
 <body>
@@ -127,6 +142,9 @@ body {
     <div>
         <a href="Admindashboard.jsp"><i class="fa-solid fa-house"></i> Dashboard</a>
         <a href="LogoutServlet.do"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+      
+       
+    </a>
     </div>
 </div>
 

@@ -122,7 +122,7 @@
     </h4>
 
     <!-- Link back to dashboard -->
-    <a href="studentDashboard.jsp" class="dashboard-link">
+    <a href="dashboard.jsp" class="dashboard-link">
         <i class="fa-solid fa-arrow-left"></i>
         Back to Dashboard
     </a>

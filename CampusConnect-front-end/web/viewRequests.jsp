@@ -67,6 +67,20 @@ th{color:#9fb3c8;}
     padding:40px;
     color:#888;
 }
+.dashboard-link{
+            color:#9dc6ff;
+            text-decoration:none;
+            font-weight:500;
+            background:rgba(70,130,200,0.2);
+            padding:0.4rem 1rem;
+            border-radius:20px;
+            transition:0.2s;
+        }
+
+        .dashboard-link:hover{
+            background:#2a6ebb;
+            color:white;
+        }
 
 </style>
 </head>
@@ -75,8 +89,13 @@ th{color:#9fb3c8;}
 
 <div class="container mt-5">
 <div class="card-box">
+    <a href="Admindashboard.jsp" class="dashboard-link">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back to Dashboard
+    </a>
 
 <h3><i class="fa fa-file-lines"></i> All Student Requests</h3>
+
 <hr/>
 
 <!-- ===== FILTER SECTION ===== -->
@@ -94,6 +113,7 @@ th{color:#9fb3c8;}
 
 <thead>
 <tr>
+    <th>Request ID</th>
 <th>Student No</th>
 <th>Type</th>
 <th>Description</th>
@@ -115,6 +135,7 @@ String status = r.getStatus().name();
 
 <tr data-status="<%= status %>">
 
+<td><%= r.getId() %></td>
 <td><%= r.getStudent().getStudentNumber() %></td>
 <td><%= r.getSupportType().name() %></td>
 <td><%= r.getDescription() %></td>
