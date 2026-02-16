@@ -197,7 +197,7 @@ body.light-mode .banner .mode-container {
 
         <h2>Login in to CampusConnect</h2>
 
-        <form action="LoginServlet" method="post">
+        <form action="LoginServlet.do" method="post">
 
             <!-- Email -->
             <div class="mb-3">
@@ -226,6 +226,10 @@ body.light-mode .banner .mode-container {
         <p class="text-center mt-3">
             Don't have an account?
             <a href="Register.jsp">Register here</a>
+        </p>
+        <p class="text-center mt-3">
+            Log as Admin?
+            <a href="Adminlogin.jsp">Admin login here</a>
         </p>
 
         <!-- Error -->

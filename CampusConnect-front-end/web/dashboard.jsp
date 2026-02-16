@@ -4,6 +4,7 @@
     Author     : untsa
 --%>
 
+<%@page import="za.ac.tut.model.entity.Student"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -132,24 +133,29 @@ html, body {
 <!-- Row 1 -->
 <div class="row g-4">
     <div class="col-md-6">
+         <a href="RequestSupport.jsp" class="text-decoration-none">
         <div class="feature-box">
             <h6>Request Support</h6>
+          
             <i class="fa-solid fa-plus"></i>
         </div>
+              </a>
     </div>
 
     <div class="col-md-6">
+        <a href="ViewAnnouncmentsAndEventsServlet.do" class="text-decoration-none">
         <div class="feature-box">
-            <h6>Announcements</h6>
+            <h6>Announcements & Events</h6>
             <i class="fa-solid fa-bullhorn"></i>
         </div>
+        </a>
     </div>
 </div>
 
 <!-- Row 2 -->
 <div class="row g-4 mt-1">
     <div class="col-md-6">
-        <a href="trackRequestPage.jsp" class="text-decoration-none">
+        <a href="TrackRequestsServlet.do" class="text-decoration-none">
             <div class="feature-box">
             <h6>Track Requests</h6>
             <i class="fa-solid fa-clipboard-list"></i>
@@ -159,7 +165,7 @@ html, body {
     </div>
 
     <div class="col-md-6">
-        <a href="feedBackPage.jsp" class="text-decoration-none">
+        <a href="feedback.jsp" class="text-decoration-none">
            <div class="feature-box">
             <h6>Feedback</h6>
             <i class="fa-solid fa-comment"></i>
@@ -171,19 +177,7 @@ html, body {
 
 
 
-<!-- Recent Requests Section -->
-<div class="requests-box">
-    <h6>RECENT REQUESTS:</h6>
 
-    <div class="requests-row">
-        Math Tutoring | Pending | 2024-10-01
-    </div>
-
-    <div class="requests-row">
-        Consultation | Approved | 2024-09-28
-    </div>
-
-</div>
 
 </div>
 </div>

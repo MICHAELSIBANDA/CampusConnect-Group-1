@@ -196,12 +196,11 @@ body.light-mode .banner .mode-container {
     <div class="register-card">
         <h2><i class="fas fa-user-plus"></i> Register Student</h2>
 
-        <form action="RegisterStudentServlet.do" method="POST">
+        <form action="RegisterServlet.do" method="POST">
             <input type="text" name="fullname" placeholder="Full Name" required>
             <input type="text" name="studNo" placeholder="Student No" required>
             <input type="text" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
-            <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
 
             <button type="submit" class="btn-submit">
                 <i class="fas fa-paper-plane"></i> REGISTER
@@ -209,7 +208,7 @@ body.light-mode .banner .mode-container {
         </form>
 
         <p style="text-align:center; margin-top:15px; font-size: 0.95rem;">
-            Already have an account? <a href="#">Login Here</a>
+            Already have an account? <a href="login.jsp">Login Here</a>
         </p>
     </div>
 </div>

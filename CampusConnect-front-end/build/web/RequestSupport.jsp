@@ -81,6 +81,18 @@ html, body {
     font-size: 0.95rem;
     font-weight: 500;
 }
+.mode-container1 {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
 
 .toggle-mode {
     cursor: pointer;
@@ -162,6 +174,20 @@ body.light-mode .banner .mode-container {
         display: none;
     }
 }
+.dashboard-link{
+            color:#9dc6ff;
+            text-decoration:none;
+            font-weight:500;
+            background:rgba(70,130,200,0.2);
+            padding:0.4rem 1rem;
+            border-radius:20px;
+            transition:0.2s;
+        }
+
+        .dashboard-link:hover{
+            background:#2a6ebb;
+            color:white;
+        }
 </style>
 </head>
 
@@ -179,13 +205,23 @@ body.light-mode .banner .mode-container {
     <div class="mode-container">
         <span id="modeText">Dark Mode</span>
         <i class="fas fa-adjust toggle-mode" id="modeToggle"></i>
+        
     </div>
+    <div class="mode-container1">
+         <a href="dashboard.jsp" class="dashboard-link">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back to Dashboard
+    </a>
+        
+    </div>
+    
 </div>
 
 <!-- ===== Support Request Form ===== -->
 <div class="container-center">
     <div class="support-card">
         <h2><i class="fas fa-hands-helping"></i> Request Academic Support</h2>
+       
 
         <form action="SupportRequestServlet.do" method="POST">
 
@@ -193,10 +229,8 @@ body.light-mode .banner .mode-container {
                 <label>Type of Support</label>
                 <select name="supportType" class="form-select" required>
                     <option value="" disabled selected>Select support type</option>
-                    <option value="Tutoring">Tutoring</option>
-                    <option value="Consultation">Consultation</option>
-                    <option value="Mentoring">Mentoring</option>
-                    <option value="Exam Preparation">Exam Preparation</option>
+                    <option value="TUTORING">Tutoring</option>
+                    <option value="CONSULTATION">Consultation</option>
                 </select>
             </div>
 
